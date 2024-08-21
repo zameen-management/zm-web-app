@@ -9,7 +9,6 @@ interface HomeHeroProps {
 const ServiceHero: FC<HomeHeroProps> = ({ onClick }) => {
 	return (
 		<StyledHero>
-			<img className="handshake-img" src="/images/handshake.svg" />
 			<img className="property-img" src="/images/property.svg" />
 			<div className="content">
 				<h1>

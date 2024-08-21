@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { NavLink, To, useNavigate } from "react-router-dom";
-import { StyledWebappHeader } from "./Layout.styled";
-import Logo from "../ui/logo/Logo";
+import { To, useNavigate } from "react-router-dom";
+import { StyledLogo, StyledWebappHeader } from "./Layout.styled";
 import { MdArrowForwardIos, MdClose, MdMenu } from "react-icons/md";
 import Button from "../ui/button/Button";
 
@@ -18,15 +17,17 @@ const LayoutHeader = () => {
 
 	return (
 		<StyledWebappHeader open={isNavOpen}>
-			<Logo />
+			<StyledLogo href="/">
+				<img src="/images/house.svg" alt="Zameen Management" />
+			</StyledLogo>
 			<nav>
 				<div className="menu-close">
 					<MdClose className="menu-icon" onClick={toggleNav} />
 				</div>
-				<NavLink to="/properties">
+				{/* <NavLink to="/properties">
 					Properties
 					<MdArrowForwardIos />
-				</NavLink>
+				</NavLink> */}
 				<Button onClick={() => handleNavigate("/services")}>
 					Work With Us
 				</Button>

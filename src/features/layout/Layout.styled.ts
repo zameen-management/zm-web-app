@@ -7,22 +7,21 @@ interface HeaderProps {
 export const StyledWebappHeader = styled.header<HeaderProps>`
 	width: 100%;
 	height: 75px;
-	background: var(--dark-gray);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0 2rem;
+	background: var(--dark-gray);
 
 	nav {
 		display: flex;
 		align-items: center;
-		gap: 1.5rem;
-		background: var(--dark-gray);
+		gap: 2.5rem;
 
 		.menu-close {
 			position: fixed;
 			left: 0;
-			top: 0;
+			top: 1rem;
 			width: 100vw;
 			height: 50px;
 			display: ${(props) => (props.open ? "flex" : "none")};
@@ -33,12 +32,19 @@ export const StyledWebappHeader = styled.header<HeaderProps>`
 		}
 
 		a {
-			color: white;
-			font-weight: 300;
+			color: var(--gray);
+			font-weight: 500;
+			font-size: 15px;
+			line-height: 15px;
+			letter-spacing: 0.1px;
 			cursor: pointer;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+
+			&.active {
+				color: var(--primary);
+			}
 
 			svg {
 				display: none;
@@ -70,19 +76,29 @@ export const StyledWebappHeader = styled.header<HeaderProps>`
 			left: ${(props) => (props.open ? "0" : "100vw")};
 			width: 100vw;
 			height: 100vh;
+			background: var(--dark-gray);
 			z-index: 10;
 			flex-direction: column;
 			align-items: flex-end;
+			gap: 1rem;
 			padding: calc(75px + 2rem) 2rem 0 2rem;
 
 			a {
-				background: none;
+				background: white;
 				color: var(--primary);
-				border: 1px solid var(--primary);
 				width: 100%;
 				padding: 1rem;
 				border-radius: 5px;
 				font-weight: 400;
+
+				&.active {
+					background: var(--primary);
+					color: white;
+
+					svg {
+						color: white;
+					}
+				}
 
 				svg {
 					display: block;
@@ -112,8 +128,18 @@ export const StyledWebappHeader = styled.header<HeaderProps>`
 	}
 `;
 
+export const StyledLogo = styled.a`
+	img {
+		height: 50px;
+		width: auto;
+
+		@media (max-width: 1080px) {
+			height: 40px;
+		}
+	}
+`;
+
 export const StyledWebappBody = styled.section`
-	flex-grow: 1;
 	min-height: calc(100vh - 75px);
 	overflow: auto;
 `;
@@ -121,6 +147,9 @@ export const StyledWebappBody = styled.section`
 export const StyledWebappFooter = styled.footer`
 	width: 100%;
 	background: var(--dark-gray);
-	color: white;
 	padding: 2rem;
+
+	p {
+		color: white;
+	}
 `;
