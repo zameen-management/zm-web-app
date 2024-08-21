@@ -112,6 +112,10 @@ export const StyledWebappHeader = styled.header<HeaderProps>`
 				align-items: center;
 				padding: 1rem;
 			}
+
+			button {
+				width: 100%;
+			}
 		}
 	}
 
