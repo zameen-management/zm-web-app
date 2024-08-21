@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { To, useNavigate } from "react-router-dom";
 import { StyledLogo, StyledWebappHeader } from "./Layout.styled";
-import { MdArrowForwardIos, MdClose, MdMenu } from "react-icons/md";
+import { MdClose, MdMenu } from "react-icons/md";
 import Button from "../ui/button/Button";
 
 const LayoutHeader = () => {
