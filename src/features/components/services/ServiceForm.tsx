@@ -1,14 +1,14 @@
 import { FormEvent, forwardRef, useState } from "react";
-import getUsers from "../../api/users/getUsers";
-import { IUser } from "../../types/User";
 import { render } from "@react-email/components";
 import ConsultationEmail from "../../../../emails/ConsultationEmail";
-import sendEmail from "../../api/emails/sendEmail";
 import { ConsulationForm, StyledHomeForm } from "./Services.styled";
 import Input from "../../ui/input/Input";
 import Button from "../../ui/button/Button";
 import Dropdown from "../../ui/dropdown/Dropdown";
 import Textbox from "../../ui/textbox/Textbox";
+import { User } from "../../types/User.types";
+import UserApi from "../../api/User.api";
+import EmailApi from "../../api/Email.api";
 
 const ServiceForm = forwardRef((_props, ref) => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -32,13 +32,13 @@ const ServiceForm = forwardRef((_props, ref) => {
 
 		try {
 			setIsLoading(true);
-			const { data: users } = await getUsers({ role: "Manager" });
-			const recipients = users.map((user: IUser) => user?.email);
+			const users = await UserApi.getAll({ role: "Manager" });
+			const recipients = users.map((user: User) => user?.email);
 			const body = render(
 				<ConsultationEmail consultation={consultation} />
 			);
 
-			await sendEmail({
+			await EmailApi.send({
 				subject: `${
 					consultation?.name || "Someone"
 				} has requested a consultation`,

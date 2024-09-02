@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { APPLICATION_MODEL, IApplication } from "../types/Application";
 import {
 	addLocalData,
 	getLocalData,
 	removeLocalData,
 } from "../utils/localStorage";
+import { Application, EmptyApplication } from "../types/Application.types";
 
 type InitialStateType = {
-	application: IApplication;
+	application: Application;
 	token: any;
 };
 const initialState: InitialStateType = {
-	application: APPLICATION_MODEL,
+	application: EmptyApplication,
 	token: getLocalData("application"),
 };
 
@@ -38,7 +38,7 @@ export const { setApplication, setApplicationToken, removeApplicationToken } =
 	applicationSlice.actions;
 
 export const getApplication = (state: any) => {
-	return state.application.application as IApplication;
+	return state.application.application as Application;
 };
 
 export const getApplicationToken = (state: any) => {

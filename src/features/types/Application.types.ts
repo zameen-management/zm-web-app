@@ -1,56 +1,51 @@
-import { formatDate } from "../utils/formatDate";
-
-interface Landlord {
-	name: string;
-	phoneNumber: string;
+export interface ApplicationHistory {
+	message: string;
+	createdAt?: Date;
 }
 
-interface Residence {
+export interface Residence {
 	location: string;
-	landlord: Landlord;
+	landlord: {
+		name: string;
+		phoneNumber: string;
+	};
 	rent: number;
 	dates: string;
 }
 
-interface Employer {
+export interface Employer {
 	company: string;
 	role: string;
 	monthlyIncome: number;
 	dates: string;
 }
 
-interface AdditionalIncome {
+export interface AdditionalIncome {
 	description: string;
 	monthlyIncome: number;
 }
 
-interface GeneralQuestions {
+export interface GeneralQuestions {
 	doesSmoke: string;
 	convictedFelon: string;
 	bankruptcy: string;
 	evicted: string;
 }
 
-interface Reference {
+export interface Reference {
 	name: string;
 	relation: string;
 	phoneNumber: string;
 }
 
-interface Signature {
+export interface Signature {
 	name: string;
 	date: string;
 }
 
-export interface ApplicationHistory {
+export interface Application {
 	_id?: string;
-	message: string;
-	createdAt?: string;
-}
-
-export interface IApplication {
-	_id?: string;
-	status: "In-Review" | "Approved" | "Rejected";
+	status: "Approved" | "Rejected" | "In-Review";
 	isComplete: boolean;
 	isPaid: boolean;
 	currentPage: number;
@@ -59,7 +54,7 @@ export interface IApplication {
 	revisions: string;
 	history: ApplicationHistory[];
 
-	// data
+	// Data fields
 	type: string;
 	firstName: string;
 	lastName: string;
@@ -87,7 +82,7 @@ export interface IApplication {
 	updatedAt?: Date;
 }
 
-export const APPLICATION_MODEL: IApplication = {
+export const EmptyApplication: Application = {
 	status: "In-Review",
 	isComplete: false,
 	isPaid: false,
@@ -97,7 +92,7 @@ export const APPLICATION_MODEL: IApplication = {
 	revisions: "",
 	history: [],
 
-	// data
+	// Data fields
 	type: "",
 	firstName: "",
 	lastName: "",
@@ -164,6 +159,6 @@ export const APPLICATION_MODEL: IApplication = {
 	dependents: "",
 	signature: {
 		name: "",
-		date: formatDate(new Date()),
+		date: "",
 	},
 };

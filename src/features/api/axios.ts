@@ -1,8 +1,10 @@
 import axios from "axios";
-import { BACKEND_URL } from "../../constants";
+import { API_KEY, BACKEND_URL } from "../../constants";
 
 export default axios.create({
 	baseURL: BACKEND_URL,
-	headers: { "Content-Type": "application/json" },
 	withCredentials: true,
+	headers: {
+		"x-api-key": API_KEY,
+	},
 });

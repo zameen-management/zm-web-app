@@ -7,14 +7,14 @@ import useQuery from "../../features/hooks/useQuery";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { IApplication } from "../../features/types/Application";
-import getApplicationByToken from "../../features/api/applications/getApplicationByToken";
 import { setApplicationToken } from "../../features/app/applicationSlice";
 import Modal from "../../features/ui/modal/Modal";
 import { StatusMessage } from "../../features/components/applications/Applications.styled";
 import Button from "../../features/ui/button/Button";
 import Accordion from "../../features/ui/accordion/Accordion";
 import Container from "../../features/ui/container/Container";
+import { Application } from "../../features/types/Application.types";
+import ApplicationApi from "../../features/api/Application.api";
 
 const paymentOptions = [
 	{
@@ -75,7 +75,7 @@ const ApplicationComplete = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(true);
-	const [application, setApplication] = useState<IApplication>();
+	const [application, setApplication] = useState<Application>();
 
 	const validateApplication = async () => {
 		try {
@@ -83,7 +83,9 @@ const ApplicationComplete = () => {
 				throw new Error("Invalid token.");
 			}
 
-			const { data } = await getApplicationByToken(token);
+			const apps = await ApplicationApi.getAll({ token });
+			if (apps.length < 1) return;
+			const data = apps[0];
 
 			if (data.status === "Rejected") {
 				navigate("/properties");

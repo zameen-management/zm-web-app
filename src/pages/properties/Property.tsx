@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { IProperty } from "../../features/types/Property";
-import getPropertyById from "../../features/api/property/getPropertyById";
 import Container from "../../features/ui/container/Container";
-import PropertyInfo from "../../features/api/property/PropertyInfo";
+import PropertyInfo from "../../features/components/properties/PropertyInfo";
+import { Property as PropertyModel } from "../../features/types/Property.types";
+import PropertyApi from "../../features/api/Property.api";
 
 const Property = () => {
 	const { propertyId } = useParams();
-	const [property, setProperty] = useState<IProperty>();
+	const [property, setProperty] = useState<PropertyModel>();
 	const navigate = useNavigate();
 
 	const fetchProperty = async () => {
 		try {
-			const { data } = await getPropertyById(propertyId || "");
+			const data = await PropertyApi.getById(propertyId || "");
 			setProperty(data);
 		} catch (err) {
 			alert(
@@ -29,7 +29,7 @@ const Property = () => {
 	if (!property) {
 		return (
 			<Container>
-				<p>Fetching property...</p>
+				<p>Loading property...</p>
 			</Container>
 		);
 	}

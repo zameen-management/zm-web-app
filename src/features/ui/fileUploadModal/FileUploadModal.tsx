@@ -1,10 +1,9 @@
 import { FC, useEffect, useState } from "react";
-import uploadAsset from "../../api/assets/uploadAsset";
-import removeAssetByKey from "../../api/assets/removeAssetByKey";
 import { StyledFileUploadModal } from "./FileUploadModal.styled";
 import { getImageUrl } from "../../utils/getImageUrl";
 import { MdDelete } from "react-icons/md";
 import FileUpload from "../fileUpload/FileUpload";
+import AssetApi from "../../api/Asset.api";
 
 interface UploadModalProps {
 	value: string[];
@@ -29,7 +28,7 @@ const FileUploadModal: FC<UploadModalProps> = ({
 			setIsLoading(true);
 			const tempFiles = [];
 			for (const file of files) {
-				const { data: key } = await uploadAsset(file);
+				const key = await AssetApi.upload(file);
 				tempFiles.push(key);
 			}
 			setSelectedFiles(tempFiles);
@@ -43,7 +42,7 @@ const FileUploadModal: FC<UploadModalProps> = ({
 	const handleDelete = async (key: string) => {
 		try {
 			setIsLoading(true);
-			await removeAssetByKey(key);
+			await AssetApi.delete(key);
 			setSelectedFiles((prev: any) =>
 				prev.filter((file: any) => file !== key)
 			);

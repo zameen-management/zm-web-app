@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-interface PillProp {
-	color: string;
-}
-
 export const StyledPropertyListings = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -14,178 +10,96 @@ export const StyledPropertyListings = styled.div`
 		grid-gap: 1rem;
 	}
 
-	@media (max-width: 900px) {
+	@media (max-width: 850px) {
 		grid-template-columns: 1fr;
 	}
 `;
 
-export const StyledPropertyCard = styled.div`
-	display: flex;
-	flex-direction: column;
+interface PropertyCardProps {
+	$status: "Available" | "Unavailable" | "Occupied";
+}
+
+export const StyledPropertyCard = styled.div<PropertyCardProps>`
+	background: var(--light-gray);
+	width: 100%;
+	height: 400px;
 	border-radius: 10px;
+	overflow: hidden;
 	cursor: pointer;
-	background-color: white;
-	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
 	&:hover {
-		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+			rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+			rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 	}
 
-	& img {
+	img {
 		width: 100%;
-		height: 300px;
+		height: 100%;
+		border-radius: 10px;
 		object-fit: cover;
-		object-position: center;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
 	}
 
-	.no-images {
+	.card-overlay {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 50%;
+		background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+	}
+
+	.card-content {
+		position: absolute;
+		bottom: 0;
+		left: 0;
 		width: 100%;
-		height: 300px;
-		background-image: url("https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
-		background-size: cover;
-		background-position: center;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-
-		.blur {
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.75);
-			backdrop-filter: blur(6px);
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			color: white;
-			font-size: 26px;
-			font-weight: 500;
-			letter-spacing: 0.25px;
-			border-top-left-radius: 10px;
-			border-top-right-radius: 10px;
-		}
-	}
-
-	.card-body {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
 		padding: 1rem;
+		color: white;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-end;
 
-		.card-address {
-			display: flex;
-			align-items: center;
-			gap: 0.25rem;
-			color: var(--gray);
-
-			svg {
-				width: 20px;
-				height: 20px;
-			}
-
-			p {
-				color: gray;
-				letter-spacing: 0.1px;
-			}
+		h3 {
+			font-size: 24px;
+			font-weight: 500;
 		}
 
-		.card-spec {
+		h4 {
+			font-size: 22px;
+			color: var(--off-white);
+		}
+
+		p {
+			color: white;
+		}
+
+		.card-specs {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			gap: 0.5rem;
 
 			svg {
-				color: var(--primary);
-				background: whitesmoke;
-				border-radius: 4px;
-				padding: 0.25rem;
-				width: 26px;
-				height: 26px;
+				width: 25px;
+				height: 25px;
 			}
 		}
 	}
-`;
 
-export const StyledPill = styled.p<PillProp>`
-	position: absolute;
-	top: 1rem;
-	left: 1rem;
-	background: ${(props) => props.color};
-	width: min-content;
-	white-space: nowrap;
-	font-size: 12px;
-	line-height: 14px;
-	font-weight: 400 !important;
-	color: white !important;
-	padding: 2px 8px;
-	border-radius: 5px;
-`;
-
-export const InfoPill = styled.p`
-	position: absolute;
-	top: 1rem;
-	right: 1rem;
-	background: gray;
-	width: min-content;
-	white-space: nowrap;
-	font-size: 12px;
-	line-height: 14px;
-	font-weight: 400 !important;
-	color: white !important;
-	padding: 2px 8px;
-	border-radius: 5px;
-`;
-
-export const StyledPropertyInfo = styled.section`
-	display: grid;
-	grid-template-columns: 3fr 2fr;
-	grid-gap: 2rem;
-
-	@media (max-width: 1200px) {
-		grid-template-columns: 1fr;
-	}
-
-	@media (max-width: 1080px) {
-		grid-template-columns: 1fr;
-		grid-gap: 1rem;
-	}
-`;
-
-export const PropertyInfoCard = styled.div`
-	background: white;
-	padding: 1rem;
-	border-radius: 16px;
-	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-	height: min-content;
-`;
-
-export const StyledPropertyImageGallery = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-
-	img {
-		height: 500px;
-		width: auto;
-		object-fit: cover;
-		border-radius: 4px;
-	}
-
-	svg {
-		background: black;
+	.pill {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		font-size: 14px;
+		line-height: 12px;
+		padding: 0.35rem 0.5rem;
+		font-weight: 500;
+		letter-spacing: 0.1px;
+		border-radius: 5px;
+		background: ${({ $status }) =>
+			$status === "Available" ? "var(--success)" : "black"};
 		color: white;
-		width: 40px;
-		height: 40px;
-		border-radius: 20px;
-		padding: 0.5rem;
-		cursor: pointer;
-	}
-
-	@media (max-width: 1080px) {
-		img {
-			width: 100%;
-			height: auto;
-		}
 	}
 `;

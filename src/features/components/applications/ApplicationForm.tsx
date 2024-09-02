@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { IProperty } from "../../types/Property";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -9,26 +8,25 @@ import {
 } from "../../app/applicationSlice";
 import useMultiPageForm from "../../hooks/useMultiPageForm";
 import { APPLICATION_STEPS } from "./Application.constants";
-import updateApplicationById from "../../api/applications/updateApplicationById";
-import createApplication from "../../api/applications/createApplication";
-import addApplicationHistory from "../../api/applications/history/addApplicationHistory";
 import { getAddress } from "../../utils/getAddress";
 import { render } from "@react-email/components";
 import AppSubmissionEmail from "../../../../emails/AppSubmissionEmail";
 import { BASE_URL, MANAGER_BASE_URL } from "../../../constants";
-import sendEmail from "../../api/emails/sendEmail";
 import RevisionsMadeEmail from "../../../../emails/RevisionsMadeEmail";
 import ApplicationEmail from "../../../../emails/ApplicationEmail";
-import getUsers from "../../api/users/getUsers";
-import { IUser } from "../../types/User";
 import Form from "../../ui/form/Form";
 import Modal from "../../ui/modal/Modal";
 import Button from "../../ui/button/Button";
 import ApplicationPageNav from "./ApplicationPageNav";
 import PageCount from "./PageCount";
+import { Property } from "../../types/Property.types";
+import { User } from "../../types/User.types";
+import UserApi from "../../api/User.api";
+import EmailApi from "../../api/Email.api";
+import ApplicationApi from "../../api/Application.api";
 
 type FormProps = {
-	property: IProperty;
+	property: Property;
 };
 
 const ApplicationForm = ({ property }: FormProps) => {
@@ -55,13 +53,10 @@ const ApplicationForm = ({ property }: FormProps) => {
 	const handlePrevious = async () => {
 		try {
 			setIsLoading(true);
-			const { data } = await updateApplicationById(
-				application?._id || "",
-				{
-					...application,
-					currentPage: Math.max(currentStep - 1, 0),
-				}
-			);
+			const data = await ApplicationApi.update(application?._id || "", {
+				...application,
+				currentPage: Math.max(currentStep - 1, 0),
+			});
 			dispatch(setApplication(data));
 			previous();
 		} catch (err) {
@@ -76,12 +71,12 @@ const ApplicationForm = ({ property }: FormProps) => {
 			setIsLoading(true);
 
 			if (isFirstStep && !application.token) {
-				const { data } = await createApplication({
+				const data = await ApplicationApi.add({
 					...application,
 					currentPage: currentStep,
-					property: property._id,
+					property: property?._id || "",
 				});
-				await addApplicationHistory(data._id, {
+				await ApplicationApi.addHistory(data?._id || "", {
 					message: `Application started`,
 				});
 				dispatch(setApplicationToken(data.token));
@@ -105,7 +100,7 @@ const ApplicationForm = ({ property }: FormProps) => {
 							url={`${BASE_URL}/applications/complete?token=${application.token}`}
 						/>
 					);
-					await sendEmail({
+					await EmailApi.send({
 						subject: `Your application for ${propertyAddress}`,
 						body: applicantBody,
 						recipients: [application.email],
@@ -113,9 +108,12 @@ const ApplicationForm = ({ property }: FormProps) => {
 
 					let managerBody: any;
 					if (application.revisions) {
-						await addApplicationHistory(application?._id || "", {
-							message: `${application.firstName} has revised the application`,
-						});
+						await ApplicationApi.addHistory(
+							application?._id || "",
+							{
+								message: `${application.firstName} has revised the application`,
+							}
+						);
 						managerBody = render(
 							<RevisionsMadeEmail
 								address={propertyAddress}
@@ -133,22 +131,22 @@ const ApplicationForm = ({ property }: FormProps) => {
 						);
 					}
 
-					const { data: managers } = await getUsers({
+					const managers = await UserApi.getAll({
 						role: "Manager",
 					});
-					await sendEmail({
+					await EmailApi.send({
 						subject: `Application submitted for ${propertyAddress}`,
 						body: managerBody,
 						recipients: managers.map(
-							(manager: IUser) => manager.email
+							(manager: User) => manager.email
 						),
 					});
-					await addApplicationHistory(application?._id || "", {
+					await ApplicationApi.addHistory(application?._id || "", {
 						message: `${application.firstName} has submitted the application`,
 					});
 				}
 
-				const { data } = await updateApplicationById(
+				const data = await ApplicationApi.update(
 					application?._id || "",
 					{
 						isComplete: true,
@@ -158,7 +156,7 @@ const ApplicationForm = ({ property }: FormProps) => {
 				dispatch(setApplication(data));
 				navigate(`/applications/complete?token=${data.token}`);
 			} else {
-				const { data } = await updateApplicationById(
+				const data = await ApplicationApi.update(
 					application?._id || "",
 					{
 						...application,

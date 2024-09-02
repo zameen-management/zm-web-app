@@ -1,26 +1,18 @@
 import { useEffect, useState } from "react";
-import getProperties from "../../api/property/getProperties";
 import { StyledPropertyListings } from "./Properties.styled";
-import { IProperty } from "../../types/Property";
 import PropertyCard from "./PropertyCard";
+import PropertyApi from "../../api/Property.api";
+import { Property } from "../../types/Property.types";
 
 const PropertyListings = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [properties, setProperties] = useState<IProperty[]>([]);
+	const [properties, setProperties] = useState<Property[]>([]);
 
 	const fetchProperties = async () => {
 		try {
 			setIsLoading(true);
-			const { data } = await getProperties();
-
-			const availableProperties = data.filter(
-				(property: IProperty) => property.availability === "Available"
-			);
-			const occupiedProperties = data.filter(
-				(property: IProperty) => property.availability === "Occupied"
-			);
-
-			setProperties([...availableProperties, ...occupiedProperties]);
+			const response = await PropertyApi.getAll();
+			setProperties(response);
 		} catch (err) {
 			alert("Unable to fetch properties.");
 		} finally {
@@ -37,7 +29,7 @@ const PropertyListings = () => {
 	return (
 		<StyledPropertyListings>
 			{properties.length === 0 && <p>No Properties Available</p>}
-			{properties.map((property: IProperty) => (
+			{properties.map((property: Property) => (
 				<PropertyCard key={property._id} property={property} />
 			))}
 		</StyledPropertyListings>

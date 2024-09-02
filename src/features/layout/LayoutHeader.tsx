@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { To, useNavigate } from "react-router-dom";
+import { NavLink, To, useNavigate } from "react-router-dom";
 import { StyledLogo, StyledWebappHeader } from "./Layout.styled";
-import { MdClose, MdMenu } from "react-icons/md";
+import { MdArrowForwardIos, MdClose, MdMenu } from "react-icons/md";
 import Button from "../ui/button/Button";
 
 const LayoutHeader = () => {
@@ -24,10 +24,10 @@ const LayoutHeader = () => {
 				<div className="menu-close">
 					<MdClose className="menu-icon" onClick={toggleNav} />
 				</div>
-				{/* <NavLink to="/properties">
+				<NavLink to="/properties">
 					Properties
 					<MdArrowForwardIos />
-				</NavLink> */}
+				</NavLink>
 				<Button onClick={() => handleNavigate("/services")}>
 					Work With Us
 				</Button>
