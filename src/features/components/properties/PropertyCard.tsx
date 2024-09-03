@@ -19,8 +19,13 @@ const PropertyCard = ({ property }: Props) => {
 			onClick={() => navigate(`${property._id}`)}
 			$status={property.status}
 		>
-			{property.images.length > 0 && (
+			{property.images.length > 0 ? (
 				<Image imageKey={property.images[0].key} />
+			) : (
+				<img
+					src="https://www.charminghomes.co.nz/uploads/1/3/9/6/139617426/property-placeholder-grande_2.jpg"
+					alt="placeholder"
+				/>
 			)}
 			<div className="card-overlay"></div>
 			<div className="pill">{property.status}</div>

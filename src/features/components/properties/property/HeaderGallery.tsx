@@ -11,7 +11,7 @@ interface Props {
 
 const HeaderGallery = ({ images }: Props) => {
 	const [imageIndex, setImageIndex] = useState(0);
-	const [isModalOpen, setIsModalOpen] = useState(true);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const openModal = (index: number) => {
 		setImageIndex(index);
