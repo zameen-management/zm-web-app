@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Container from "../../features/ui/container/Container";
-import PropertyInfo from "../../features/components/properties/PropertyInfo";
+import PropertyListing from "../../features/components/properties/PropertyListing";
 import { Property as PropertyModel } from "../../features/types/Property.types";
 import PropertyApi from "../../features/api/Property.api";
 
@@ -36,7 +36,7 @@ const Property = () => {
 
 	return (
 		<Container>
-			<PropertyInfo property={property} />
+			<PropertyListing property={property} />
 		</Container>
 	);
 };
