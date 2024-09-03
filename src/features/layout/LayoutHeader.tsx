@@ -24,7 +24,7 @@ const LayoutHeader = () => {
 				<div className="menu-close">
 					<MdClose className="menu-icon" onClick={toggleNav} />
 				</div>
-				<NavLink to="/properties">
+				<NavLink to="/properties" onClick={() => setIsNavOpen(false)}>
 					Properties
 					<MdArrowForwardIos />
 				</NavLink>

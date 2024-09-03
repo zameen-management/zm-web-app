@@ -3,6 +3,8 @@ import { Property } from "../../types/Property.types";
 import Image from "../../ui/image/Image";
 import { StyledPropertyCard } from "./Properties.styled";
 import { useNavigate } from "react-router-dom";
+import { Unit } from "../../types/Unit.types";
+import { formatToDollar } from "../../utils/formatToDollar";
 
 interface Props {
 	property: Property;
@@ -10,6 +12,7 @@ interface Props {
 
 const PropertyCard = ({ property }: Props) => {
 	const navigate = useNavigate();
+	const unit: Unit = property.units[0] as Unit;
 
 	return (
 		<StyledPropertyCard
@@ -23,19 +26,19 @@ const PropertyCard = ({ property }: Props) => {
 			<div className="pill">{property.status}</div>
 			<div className="card-content">
 				<div className="column gap-05">
-					<h3>123 Example Street</h3>
+					<h3>{property.address.street}</h3>
 					<div className="row gap-2">
 						<div className="card-specs">
 							<MdBed />
-							<p>3 beds</p>
+							<p>{unit.beds} beds</p>
 						</div>
 						<div className="card-specs">
 							<MdBathtub />
-							<p>2 baths</p>
+							<p>{unit.baths} baths</p>
 						</div>
 					</div>
 				</div>
-				<h4>$1,234/mo</h4>
+				<h4>{formatToDollar(unit.rent)}/mo</h4>
 			</div>
 		</StyledPropertyCard>
 	);
