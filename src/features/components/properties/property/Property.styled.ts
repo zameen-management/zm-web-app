@@ -37,11 +37,7 @@ export const StyledHeaderGallery = styled.div`
 		overflow: hidden;
 
 		&:hover {
-			box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-				rgba(0, 0, 0, 0.12) 0px -12px 30px,
-				rgba(0, 0, 0, 0.12) 0px 4px 6px,
-				rgba(0, 0, 0, 0.17) 0px 12px 13px,
-				rgba(0, 0, 0, 0.09) 0px -3px 5px;
+			box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 		}
 	}
 
@@ -214,6 +210,51 @@ export const StyledGalleryModal = styled.div`
 			img {
 				width: 100vw;
 			}
+		}
+	}
+`;
+
+export const StyledPropertyInfo = styled.div`
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+
+	.info {
+		width: 75%;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.more-info {
+		flex: 1;
+		border: 1px solid var(--light-gray);
+		border-radius: 10px;
+
+		h2 {
+			color: var(--primary);
+		}
+
+		.section {
+			margin: 1rem;
+			padding-bottom: 1rem;
+			border-bottom: 1px solid var(--light-gray);
+			display: flex;
+			flex-direction: column;
+			gap: 0.75rem;
+
+			&:last-child {
+				border: none;
+				padding-bottom: 0;
+			}
+		}
+	}
+
+	@media (max-width: 1080px) {
+		flex-direction: column-reverse;
+
+		.info {
+			width: 100%;
 		}
 	}
 `;

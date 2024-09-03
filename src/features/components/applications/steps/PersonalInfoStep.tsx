@@ -85,7 +85,7 @@ const PersonalInfoStep = () => {
 				<p>
 					Please provide a picture of a state-issued drivers license.
 					If you are unable to upload an image for some reason, please
-					email the image to faiqakamran@icloud.com
+					email the image to contact@zameeen-management.com
 				</p>
 				<FileUploadModal
 					value={application.dl === "" ? [] : [application.dl]}

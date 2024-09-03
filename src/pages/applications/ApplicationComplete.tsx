@@ -153,7 +153,7 @@ const ApplicationComplete = () => {
 						of your application, please reach out to our leasing
 						director at{" "}
 						<span className="text-primary">
-							faiqakamran@icloud.com
+							contact@zameeen-management.com
 						</span>
 						.
 					</p>

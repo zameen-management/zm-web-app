@@ -17,8 +17,8 @@ const WelcomeStep = () => {
 			<p className="text-primary italic">
 				This form will take approximately 5-10 minutes to fill out. If
 				you have trouble submitting this application, please contact our
-				leasing director at faiqakamran@icloud.com and we will provide a
-				printable version.
+				leasing director at contact@zameeen-management.com and we will
+				provide a printable version.
 			</p>
 			<p className="box-warning">
 				Please note, separate applications need to be submitted for{" "}

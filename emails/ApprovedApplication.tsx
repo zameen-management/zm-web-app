@@ -54,7 +54,7 @@ const ApprovedApplication: FC<I> = ({ name, address }) => {
 					Faiqa Kamran
 					<br></br>Leasing Director
 					<br></br>Phone: (417) 669-2258
-					<br></br>Email: faiqakamran@icloud.com
+					<br></br>Email: contact@zameeen-management.com
 				</Text>
 
 				<Hr />
