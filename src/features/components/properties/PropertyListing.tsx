@@ -9,7 +9,7 @@ const PropertyListing = ({ property }: Props) => {
 	return (
 		<>
 			{property.images.length > 0 && (
-				<HeaderGallery images={property.images} />
+				<HeaderGallery images={property.images.slice(0, 5)} />
 			)}
 		</>
 	);
