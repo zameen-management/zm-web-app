@@ -251,7 +251,7 @@ export const StyledPropertyInfo = styled.div`
 	}
 
 	@media (max-width: 1080px) {
-		flex-direction: column-reverse;
+		flex-direction: column;
 
 		.info {
 			width: 100%;
