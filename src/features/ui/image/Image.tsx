@@ -22,7 +22,7 @@ const Image: FC<Props> = ({ imageKey, ...rest }) => {
 		getImage();
 	}, [imageKey]);
 
-	return <img {...rest} src={url} />;
+	return <img {...rest} src={url} loading="lazy" />;
 };
 
 export default Image;
