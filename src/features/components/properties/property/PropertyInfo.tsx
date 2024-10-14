@@ -1,15 +1,11 @@
-import { MdEditDocument } from "react-icons/md";
 import { Property } from "../../../types/Property.types";
 import { Unit } from "../../../types/Unit.types";
-import Button from "../../../ui/button/Button";
 import { formatToDollar } from "../../../utils/formatToDollar";
 import { getAddress } from "../../../utils/getAddress";
 import { StyledPropertyInfo } from "./Property.styled";
-import { useNavigate } from "react-router-dom";
 
 const PropertyInfo = ({ property }: { property: Property }) => {
 	const unit = property.units[0] as Unit;
-	const navigate = useNavigate();
 
 	return (
 		<StyledPropertyInfo>
@@ -40,18 +36,6 @@ const PropertyInfo = ({ property }: { property: Property }) => {
 						<p>Phone Number: (417) 669-2258</p>
 						<p>Email: contact@zameen-management.com</p>
 					</div>
-				</div>
-				<div className="section">
-					<Button
-						onClick={() =>
-							navigate(
-								`/applications/apply?property=${property._id}`
-							)
-						}
-					>
-						<MdEditDocument />
-						Apply Now
-					</Button>
 				</div>
 			</div>
 		</StyledPropertyInfo>
