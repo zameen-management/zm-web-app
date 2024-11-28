@@ -1,10 +1,10 @@
 import axios from "axios";
-import { API_KEY, BACKEND_URL } from "../../constants";
+import { BACKEND_URL } from "../../constants";
 
-export default axios.create({
+export const axiosInstance = axios.create({
 	baseURL: BACKEND_URL,
-	withCredentials: true,
 	headers: {
-		"x-api-key": API_KEY,
+		"Content-Type": "application/json",
 	},
+	withCredentials: true,
 });

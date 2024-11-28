@@ -1,37 +1,18 @@
+import { InputHTMLAttributes } from "react";
 import { StyledInput } from "./Input.styled";
-import { ChangeEvent, FC, InputHTMLAttributes } from "react";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-	id: string;
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	label: string;
-	value: string | number;
-	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-	required?: boolean;
 }
 
-const Input: FC<InputProps> = ({
-	id,
-	label,
-	value,
-	onChange,
-	required,
-	...props
-}) => {
+const Input = ({ id, label, required, ...rest }: Props) => {
 	return (
 		<StyledInput>
-			{label && (
-				<label htmlFor={id}>
-					{label}
-					{required && <span>*</span>}
-				</label>
-			)}
-			<input
-				id={id}
-				value={value || ""}
-				onChange={onChange}
-				required={required}
-				{...props}
-			/>
+			<label htmlFor={id}>
+				{label}
+				{required && <span className="required">*</span>}
+			</label>
+			<input id={id} type="text" required={required} {...rest} />
 		</StyledInput>
 	);
 };

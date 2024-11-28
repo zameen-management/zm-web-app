@@ -1,16 +1,20 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Layout from "./features/layout";
-import ServicesHome from "./pages/services";
-import PropertiesHome from "./pages/properties";
+import HomeRoot from "./pages/home";
+import PublicLayout from "./features/components/layouts/publicLayout/PublicLayout";
+import ServicesRoot from "./pages/services";
+import PropertiesRoot from "./pages/properties";
+import ApplyRoot from "./pages/apply";
 
 const App = () => {
 	return (
 		<Routes>
-			<Route element={<Layout />}>
-				<Route path="services/*" element={<ServicesHome />} />
-				<Route path="properties/*" element={<PropertiesHome />} />
-				<Route path="*" element={<Navigate to="/services" />} />
+			<Route element={<PublicLayout />}>
+				<Route index element={<HomeRoot />} />
+				<Route path="properties/*" element={<PropertiesRoot />} />
+				<Route path="services/*" element={<ServicesRoot />} />
+				<Route path="apply/*" element={<ApplyRoot />} />
 			</Route>
+			<Route path="*" element={<Navigate to="/" />} />
 		</Routes>
 	);
 };

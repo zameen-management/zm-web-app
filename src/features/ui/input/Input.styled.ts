@@ -1,39 +1,46 @@
 import styled from "styled-components";
 
-export const StyledInput = styled.div<any>`
+export const StyledInput = styled.div`
+	width: 100%;
 	display: flex;
 	flex-direction: column;
-	gap: 5px;
+	gap: 6px;
 
 	label {
-		font-size: 1rem;
+		color: ${({ theme }) => theme.colors.darkGray};
+		font-size: 14px;
 		font-weight: 300;
-		letter-spacing: 0.2px;
-		color: black;
 
-		span {
-			font-weight: 500;
-			color: #e74c3c;
+		.required {
+			color: red;
 		}
 	}
 
 	input {
-		outline: none;
-		border: 1px solid var(--light-gray);
-		padding: 0.65rem 0.75rem;
-		border-radius: 5px;
+		width: 100%;
+		padding: 8px;
+		color: black;
 		font-size: 1rem;
+		line-height: 1rem;
 		font-weight: 300;
-		letter-spacing: 0.15px;
+		outline: none;
+		border: 1px solid ${({ theme }) => theme.colors.lightGray};
+		border-radius: 3px;
 
 		&::placeholder {
+			color: ${({ theme }) => theme.colors.textGray};
+			font-size: 1rem;
+			line-height: 1rem;
 			font-weight: 300;
-			color: var(--light-gray);
 		}
 
-		&:active,
-		&:focus {
-			border-color: var(--primary);
+		&:focus,
+		&:active {
+			border-color: ${({ theme }) => theme.colors.textGray};
+		}
+
+		&:disabled {
+			cursor: not-allowed;
 		}
 	}
 `;

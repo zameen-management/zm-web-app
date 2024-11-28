@@ -1,18 +1,26 @@
-import { FC, FormEvent, ReactNode } from "react";
+import { FormEvent, InputHTMLAttributes, ReactNode } from "react";
 import { StyledForm } from "./Form.styled";
 
-interface FormProps {
+interface Props extends InputHTMLAttributes<HTMLFormElement> {
 	onSubmit: () => void;
 	children?: ReactNode;
 }
 
-const Form: FC<FormProps> = ({ onSubmit, children }) => {
-	const handleSubmit = (e: FormEvent) => {
-		e.preventDefault();
-		onSubmit();
+const Form = ({ onSubmit, children, ...rest }: Props) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+		try {
+			e.preventDefault();
+			onSubmit();
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
-	return <StyledForm onSubmit={handleSubmit}>{children}</StyledForm>;
+	return (
+		<StyledForm onSubmit={handleSubmit} {...rest}>
+			{children}
+		</StyledForm>
+	);
 };
 
 export default Form;

@@ -1,15 +1,15 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Properties from "./Properties";
-import Property from "./Property";
+import PropertiesPage from "./Properties.page";
+import PropertyPage from "./Property.page";
 
-const PropertiesHome = () => {
+const PropertiesRoot = () => {
 	return (
 		<Routes>
-			<Route index element={<Properties />} />
-			<Route path=":propertyId" element={<Property />} />
+			<Route index element={<PropertiesPage />} />
+			<Route path=":propertyId" element={<PropertyPage />} />
 			<Route path="*" element={<Navigate to="" />} />
 		</Routes>
 	);
 };
 
-export default PropertiesHome;
+export default PropertiesRoot;
